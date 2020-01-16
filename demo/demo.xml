@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="object0" model="worldhello.questionmark"> 
+            <field name="name">hello?</field> 
+            <field name="description">??????????????</field> 
+        </record>
+        <record id="object1" model="worldhello.questionmark"> 
+            <field name="name">hello? 2</field> 
+            <field name="description">??????????????</field> 
+        </record>
+        <record id="object2" model="worldhello.questionmark"> 
+            <field name="name">hello? 3</field> 
+            <field name="description">??????????????</field> 
+        </record>
+        <record id="object3" model="worldhello.questionmark"> 
+            <field name="name">hello? 4</field> 
+            <field name="description">??????????????</field> 
+        </record>
+    </data>
+</odoo>
