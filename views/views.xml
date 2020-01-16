@@ -8,12 +8,52 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="About">
+                            This is an example of notebooks
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+            <!-- <tree string="Tree view">
+                <field name="name"/>
+                <field name="description"/>
+            </tree> -->
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="questionmark_search">
+        <field name="name">questionmark.search</field>
+        <field name="model">worldhello.questionmark</field>
+        <field name="arch" type="xml">
+          <search>
+              <field name="name"/>
+              <field name="description"/>
+          </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="session_form_view">
+        <field name="name">session.form</field>
+        <field name="model">worldhello.session</field>
+        <field name="arch" type="xml">
+          <form string="questionmark Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="duration"/>
+                        <field name="seats"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
+
 
     <!-- window action -->
     <!--
@@ -31,6 +71,17 @@
         </field>
     </record>
 
+    <record model="ir.actions.act_window" id="session_list_action">
+        <field name="name">List</field>
+        <field name="res_model">worldhello.session</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create something
+            </p>
+        </field> -->
+    </record>
+
     <!-- top level menu: no parent -->
     <menuitem id="main_worldhello_menu" name="WorldHello"/>
     <!-- A first level in the left side menu is needed
@@ -40,11 +91,10 @@
     <!-- the following menuitem should appear *after*
           its parent worldhello_menu and *after* its
           action questionmark_list_action -->
-    <menuitem id="worldhello_menu_3" name="Sub menu with list" parent="worldhello_menu"
+    <menuitem id="worldhello_menu_3" name="List" parent="worldhello_menu"
               action="questionmark_list_action"/>
-    <!-- Full id location:
-          action="worldhello.questionmark_list_action"
-          It is not required when it is the same module -->
+    <menuitem id="worldhello_menu_4" name="List session" parent="worldhello_menu"
+              action="session_list_action"/>
   </data>
 </odoo>
 
