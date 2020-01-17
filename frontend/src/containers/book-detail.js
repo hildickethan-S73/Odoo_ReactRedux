@@ -17,6 +17,7 @@ class BookDetail extends Component {
         <div>Author: {this.props.activeBook.author}</div>
         <div>Pages: {this.props.activeBook.pages}</div>
         <div>Synopsis: {this.props.activeBook.synopsis}</div>
+        <div>Test: {this.props.activeBook.test}</div>
       </div>
     );
   }

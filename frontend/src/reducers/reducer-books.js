@@ -15,6 +15,7 @@ export default function() {
     { title: 'The Dark Tower', 
       pages: 201,
       synopsis: "The Dark Tower is a series of eight books written by American author Stephen King that incorporates themes from multiple genres, including dark fantasy, science fantasy, horror, and Western. It describes a 'gunslinger' and his quest toward a tower, the nature of which is both physical and metaphorical. The series, and its use of the Dark Tower, expands upon Stephen King's multiverse and in doing so, links together many of his other novels. King has described the series as his magnum opus. In addition to the eight novels of the series proper that comprise 4,250 pages, many of King's other books relate to the story, introducing concepts and characters that come into play as the series progresses.",
-      author: "Stephen King" }
+      author: "Stephen King",
+      test: "test" }
   ]
 }
