@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.main__header {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+  .book-list {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .book-detail {
+    padding: 0;
+  }
+}
+
+.book-detail__header {
+  margin-top: 0;
+}
+
+.book-detail div {
+  margin-bottom: 5px;
+}
+
+.list-group-item {
+  cursor: pointer;
+  transition: 250ms ease-in-out;
+}
+
+.list-group-item:hover {
+  background-color: #EEE;
+}
