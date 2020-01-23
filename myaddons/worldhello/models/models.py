@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 # class worldhello(models.Model):
 #     _name = 'worldhello.worldhello'
@@ -21,6 +21,18 @@ class questionmark(models.Model):
 
     name = fields.Char(string="Title?", required=True)
     description = fields.Text()
+    def method(self):
+        self = self.search([])
+        results = []
+        for record in self:
+            # print(record)
+            results.append({
+                "id":record.id,
+                "name":record.name,
+                'description':record.description
+                })
+        # print(results)
+        return results
 
 
 class Session(models.Model):
@@ -33,4 +45,14 @@ class Session(models.Model):
     seats = fields.Integer(string='Number of seats')
     
 
-    
+# def create(self):
+#     print(self)
+#     for record in self:
+#         print(record)
+
+#create
+#search
+#read
+#write
+#unlink
+#https://www.odoo.com/documentation/12.0/reference/orm.html#model-reference

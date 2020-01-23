@@ -6,7 +6,7 @@ class ProductDetail extends Component {
     if (!this.props.activeProduct) {
       return (
         <div className="col-sm-8 book-detail">
-          <h3 className="book-detail__header">Select a book to get started!</h3>
+          <h3 className="book-detail__header">Select a product to get started!</h3>
         </div>
       );
     }

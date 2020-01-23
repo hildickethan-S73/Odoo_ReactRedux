@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
 from odoo import http
+import json
+import yaml
 
 class Worldhello(http.Controller):
     @http.route('/worldhello/', auth='public', website=True)
     def index(self, **kw):
         return http.request.render('worldhello.index', {})
+    
+    @http.route('/api/questionmark/', auth='public', type='http')
+    def list(self, **kw):
+        questionmark = http.request.env['worldhello.questionmark']
 
-    # @http.route('/worldhello/worldhello/objects/', auth='public')
-    # def list(self, **kw):
-    #     return http.request.render('worldhello.listing', {
-    #         'root': '/worldhello/worldhello',
-    #         'objects': http.request.env['worldhello.worldhello'].search([]),
-    #     })
+        data = http.request.httprequest.data
+        data_in_json = yaml.load(data)
+        print(data_in_json)
 
-    # @http.route('/worldhello/worldhello/objects/<model("worldhello.worldhello"):obj>/', auth='public')
-    # def object(self, obj, **kw):
-    #     return http.request.render('worldhello.object', {
-    #         'object': obj
-    #     })
+        # print(self)
+        # print(questionmark.method())
+        return http.Response(
+            json.dumps(questionmark.method()), 
+            content_type='application/json',
+            status=200
+        )

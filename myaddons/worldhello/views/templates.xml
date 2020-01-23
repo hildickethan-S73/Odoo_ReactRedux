@@ -33,5 +33,24 @@
                 </div>
             <!-- </t> -->
         </template>
+
+        <template id="list">
+            <title>bruh</title>
+            <t t-foreach="records" t-as="questionmark">
+                <p>
+                    <t t-esc="questionmark.id"/>
+                    <t t-esc="questionmark.name"/>
+                    <t t-esc="questionmark.description"/>
+                </p>
+            </t>
+        </template>
+        <!-- <template id="list">
+            <title>Academy</title>
+            <t t-foreach="teachers" t-as="teacher">
+              <p><t t-esc="teacher"/></p>
+            </t>
+        </template> -->
+
+
     </data>
 </odoo>
