@@ -8,8 +8,8 @@ class Restaurant(models.Model):
 
     name = fields.Char(string="Title?", required=True)
     description = fields.Text()
-    def get(self, query=[], offset=0, limit=None, count=None):
-        return getRecords(self,query,offset,limit,count)
+    def parseAll(self):
+        return parseAll(self)
     def parseOne(self):
         return parseOne(self)
 
@@ -21,44 +21,23 @@ class Session(models.Model):
     start_date = fields.Date()
     duration = fields.Float(digits=(0,2), help="Duration in days")
     seats = fields.Integer(string='Number of seats')
-    def get(self):
-        return getRecords(self)
+    def parseAll(self):
+        return parseAll(self)
     def parseOne(self):
         return parseOne(self)
-    
-# default values are redundant but kept for readability
-# searches and returns in JSON
-def getRecords(model, query=[], offset=0, limit=None, count=None):
-    print(model)
-    model = model.search(args=query, offset=offset, limit=limit, count=count)
+
+def parseAll(model):
     results = []
 
-    # ???
-    # gets fields of model, removes odoo generated ones
-    # enables a generic toJSON for every model, but in strings
-    attributes = model.fields_get([],['type'])
-    # print(attributes)
-    del attributes['display_name']
-    del attributes['create_uid']
-    del attributes['create_date']
-    del attributes['write_uid']
-    del attributes['write_date']
-    del attributes['__last_update']
-    # print(attributes.keys())
-
     for record in model:
-        recordObj = {}
-        for key in attributes.keys():
-            recordObj[key] = str(record[key])
+        recordObj = record.parseOne()
         results.append(recordObj)
 
     return results
 
 # returns in JSON the record passed
 def parseOne(model):
-    print(model)
 
-    # ???
     # gets fields of model, removes odoo generated ones
     # enables a generic toJSON for every model, but in strings
     attributes = model.fields_get([],['type'])
