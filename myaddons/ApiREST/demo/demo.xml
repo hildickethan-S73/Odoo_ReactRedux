@@ -1,19 +1,19 @@
 <odoo>
     <data>
         <record id="object0" model="apirest.restaurant"> 
-            <field name="name">hello?</field> 
+            <field name="name">hello</field> 
             <field name="description">??????????????</field> 
         </record>
         <record id="object1" model="apirest.restaurant"> 
-            <field name="name">hello? 2</field> 
+            <field name="name">hello2</field> 
             <field name="description">??????????????</field> 
         </record>
         <record id="object2" model="apirest.restaurant"> 
-            <field name="name">hello? 3</field> 
+            <field name="name">hello3</field> 
             <field name="description">??????????????</field> 
         </record>
         <record id="object3" model="apirest.restaurant"> 
-            <field name="name">hello? 4</field> 
+            <field name="name">hello4</field> 
             <field name="description">??????????????</field> 
         </record>
     </data>

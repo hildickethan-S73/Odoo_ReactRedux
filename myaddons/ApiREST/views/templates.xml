@@ -19,38 +19,5 @@
         <!--   </dl> -->
         <!-- </template> -->
 
-        <!-- <template id="assets_frontend" inherit_id="website.assets_frontend" name="Custom Assets">
-            <xpath expr="." position="inside">
-                <script type="text/javascript" src="/apirest/static/src/main.js"></script>
-                <link rel="stylesheet" href="/apirest/static/src/css/style.css" />
-            </xpath>
-        </template> -->
-
-        <template id="index" name="template i think">
-            <!-- <t t-call="website.layout"> -->
-                <div>
-                    <strong>helloworld</strong>
-                </div>
-            <!-- </t> -->
-        </template>
-
-        <template id="list">
-            <title>bruh</title>
-            <t t-foreach="records" t-as="restaurant">
-                <p>
-                    <t t-esc="restaurant.id"/>
-                    <t t-esc="restaurant.name"/>
-                    <t t-esc="restaurant.description"/>
-                </p>
-            </t>
-        </template>
-        <!-- <template id="list">
-            <title>Academy</title>
-            <t t-foreach="teachers" t-as="teacher">
-              <p><t t-esc="teacher"/></p>
-            </t>
-        </template> -->
-
-
     </data>
 </odoo>

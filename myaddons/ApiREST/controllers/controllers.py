@@ -8,10 +8,6 @@ allowedModels = [
 ]
 
 class Apirest(http.Controller):
-    @http.route('/apirest/', auth='public', website=True)
-    def index(self, **kw):
-        return http.request.render('apirest.index', {})
-
     ### GET ALL
     @http.route('/api/<string:modelToAccess>/', auth='public', type='json', methods=['GET'])
     def getResponse(self, **kw):
