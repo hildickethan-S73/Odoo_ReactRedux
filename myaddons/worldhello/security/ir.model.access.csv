@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_worldhello_questionmark,worldhello.questionmark,model_worldhello_questionmark,,1,1,1,1
-access_worldhello_session,worldhello.session,model_worldhello_session,,1,1,1,1

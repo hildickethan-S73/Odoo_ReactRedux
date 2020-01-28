@@ -1,10 +1,10 @@
 <odoo>
   <data>
-    <record model="ir.ui.view" id="questionmark_form">
-        <field name="name">questionmark.form</field>
-        <field name="model">worldhello.questionmark</field>
+    <record model="ir.ui.view" id="restaurant_form">
+        <field name="name">restaurant.form</field>
+        <field name="model">apirest.restaurant</field>
         <field name="arch" type="xml">
-            <form string="questionmark Form">
+            <form string="restaurant Form">
                 <sheet>
                     <group>
                         <field name="name"/>
@@ -26,9 +26,9 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="questionmark_search">
-        <field name="name">questionmark.search</field>
-        <field name="model">worldhello.questionmark</field>
+    <record model="ir.ui.view" id="restaurant_search">
+        <field name="name">restaurant.search</field>
+        <field name="model">apirest.restaurant</field>
         <field name="arch" type="xml">
           <search>
               <field name="name"/>
@@ -39,9 +39,9 @@
 
     <record model="ir.ui.view" id="session_form_view">
         <field name="name">session.form</field>
-        <field name="model">worldhello.session</field>
+        <field name="model">apirest.session</field>
         <field name="arch" type="xml">
-          <form string="questionmark Form">
+          <form string="restaurant Form">
                 <sheet>
                     <group>
                         <field name="name"/>
@@ -60,9 +60,9 @@
         The following tag is an action definition for a "window action",
         that is an action opening a view or a set of views
     -->
-    <record model="ir.actions.act_window" id="questionmark_list_action">
+    <record model="ir.actions.act_window" id="restaurant_list_action">
         <field name="name">List</field>
-        <field name="res_model">worldhello.questionmark</field>
+        <field name="res_model">apirest.restaurant</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -73,27 +73,27 @@
 
     <record model="ir.actions.act_window" id="session_list_action">
         <field name="name">List</field>
-        <field name="res_model">worldhello.session</field>
+        <field name="res_model">apirest.session</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <!-- <field name="help" type="html">
+        <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create something
             </p>
-        </field> -->
+        </field>
     </record>
 
     <!-- top level menu: no parent -->
-    <menuitem id="main_worldhello_menu" name="WorldHello"/>
+    <menuitem id="main_apirest_menu" name="REST API"/>
     <!-- A first level in the left side menu is needed
           before using action= attribute -->
-    <menuitem id="worldhello_menu" name="Parent Menu"
-              parent="main_worldhello_menu"/>
+    <menuitem id="apirest_menu" name="Parent Menu"
+              parent="main_apirest_menu"/>
     <!-- the following menuitem should appear *after*
-          its parent worldhello_menu and *after* its
-          action questionmark_list_action -->
-    <menuitem id="worldhello_menu_3" name="List" parent="worldhello_menu"
-              action="questionmark_list_action"/>
-    <menuitem id="worldhello_menu_4" name="List session" parent="worldhello_menu"
+          its parent apirest_menu and *after* its
+          action restaurant_list_action -->
+    <menuitem id="apirest_menu_3" name="List" parent="apirest_menu"
+              action="restaurant_list_action"/>
+    <menuitem id="apirest_menu_4" name="List session" parent="apirest_menu"
               action="session_list_action"/>
   </data>
 </odoo>
