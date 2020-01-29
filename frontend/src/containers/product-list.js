@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectProduct } from '../actions';
 import { bindActionCreators } from 'redux';
+import agent from '../agent';
 
 class ProductList extends Component {
   renderList() {
