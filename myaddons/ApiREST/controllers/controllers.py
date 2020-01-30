@@ -8,8 +8,14 @@ allowedModels = [
 ]
 
 class Apirest(http.Controller):
+    ### OPTIONS
+    @http.route('/api/<string:modelToAccess>/', auth='public', type='json', methods=['OPTIONS'], cors="*")
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='json', methods=['OPTIONS'], cors="*")
+    def optionResponse(self, **kw):
+        return 'hello'
+
     ### GET ALL
-    @http.route('/api/<string:modelToAccess>/', auth='public', type='json', methods=['GET'])
+    @http.route('/api/<string:modelToAccess>/', auth='public', type='http', methods=['GET'], cors="*")
     def getResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         if modelToAccess in allowedModels:
@@ -17,12 +23,12 @@ class Apirest(http.Controller):
             modelObj = http.request.env[model]
 
             # parseAll() is a self made function that parses the records as JSON
-            return modelObj.search([]).parseAll()
+            return json.dumps(modelObj.search([]).parseAll())
         else:
             return {'Error':"Model doesn't exist"}
     
     ### GET ONE BY NAME FIELD (should be slug)
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='json', methods=['GET'])
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='http', methods=['GET'], cors="*")
     def getOneResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']
@@ -33,12 +39,12 @@ class Apirest(http.Controller):
             
             # search with name query
             query = [("name","=",nameToGet)]
-            return modelObj.search(args=query, limit=1).parseAll()
+            return json.dumps(modelObj.search(args=query, limit=1).parseAll())
         else:
             return {'Error':"Model doesn't exist"}
 
     ### CREATE 
-    @http.route('/api/<string:modelToAccess>/', auth='public', type="json", methods=['POST'])
+    @http.route('/api/<string:modelToAccess>/', auth='public', type="json", methods=['POST'], cors="*")
     def postResponse(self, **kw):
         params = http.request.params
         modelToAccess = kw['modelToAccess']
@@ -55,7 +61,7 @@ class Apirest(http.Controller):
             return {'Error':"Model doesn't exist"}
 
     ### UPDATE
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['PUT'])
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['PUT'], cors="*")
     def putResponse(self, **kw):
         params = http.request.params
         modelToAccess = kw['modelToAccess']
@@ -85,7 +91,7 @@ class Apirest(http.Controller):
             return {'Error':"Model doesn't exist"}
 
     ### DELETE
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['DELETE'])
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['DELETE'], cors="*")
     def deleteResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']

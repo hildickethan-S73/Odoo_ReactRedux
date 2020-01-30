@@ -28,7 +28,6 @@ class Session(models.Model):
 
 def parseAll(model):
     results = []
-
     for record in model:
         recordObj = record.parseOne()
         results.append(recordObj)

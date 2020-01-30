@@ -4,3 +4,9 @@ export function selectProduct(product) {
     payload: product
   };
 }
+export function restaurantLoad(payload) {
+  return {
+    type: 'RESTAURANT_LOAD',
+    payload: payload
+  }
+}
