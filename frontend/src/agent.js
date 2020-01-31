@@ -4,7 +4,11 @@ import _superagent from 'superagent';
 const superagent = superagentPromise(_superagent, global.Promise);
 const API_ROOT = 'http://localhost:8069/api';
 const responseBody = res => res.body.result
-const httpResponseBody = res => JSON.parse(res.text)
+const httpResponseBody = res => {
+    // console.log(JSON.parse(res.text));
+    return JSON.parse(res.text)
+    
+}
 
 const jsonHeader = (req) => req.set('Content-Type', 'application/json');
 

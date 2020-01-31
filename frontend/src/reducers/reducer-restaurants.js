@@ -3,10 +3,8 @@
 export default function(state = null, action) {
     switch(action.type) {
       case 'RESTAURANT_LOAD':
-        return {
-          ...state,
-          restaurants: action.payload
-        }
+        return action.payload
+        
       default:
         return state;
     }
