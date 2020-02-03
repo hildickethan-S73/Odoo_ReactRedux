@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux';
-import ProductReducer from './reducer-products';
-import ActiveProductReducer from './reducer-active-product';
-import RestaurantReducer from './reducer-restaurants';
+import products from './reducer-products';
+import activeProduct from './reducer-active-product';
+import restaurants from './restaurants';
+import common from './common';
 
 const rootReducer = combineReducers({
-  products: ProductReducer,
-  activeProduct: ActiveProductReducer,
-  restaurants: RestaurantReducer
+  products,
+  activeProduct,
+  restaurants,
+  common
+
 });
 
 export default rootReducer;

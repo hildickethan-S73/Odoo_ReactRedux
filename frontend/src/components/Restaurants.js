@@ -1,30 +1,30 @@
 import React from 'react';
 
 const Restaurants = props => {
-  let interior;
-  props = props.props
-  console.log(props);
+  console.log(props.restaurants);
   
-  if (!props.restaurants) {
-    interior = <div>Loading...</div>;
-  }
-
-  interior = props.restaurants.map((restaurant) => {
-    console.log(restaurant);
+  if (!props) {
     return (
-      <li 
-        key={restaurant.name} 
-        className="list-group-item"
-        // onClick={() => props.selectProduct(restaurant)}
-        >
-        {restaurant.name}
-      </li>
+      <div>Loading...</div>
     );
-  });
+  }
 
   return (
     <ul className="list-group col-sm-4 book-list">
-      {interior}
+      {
+        props.restaurants.map((restaurant,index) => {
+          // console.log(restaurant);
+          return (
+            <li 
+              key={index} 
+              className="list-group-item"
+              // onClick={() => props.selectProduct(restaurant)}
+              >
+              {restaurant.name}
+            </li>
+          )
+        })
+      }
     </ul>
   );
 };

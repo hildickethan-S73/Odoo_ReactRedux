@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { restaurantLoad } from '../actions';
+import { RESTAURANT_LOAD, RESTAURANT_UNLOAD } from '../constants/actionTypes';
 import agent from '../agent';
 import Restaurants from '../components/Restaurants';
 
 const mapStateToProps = (state) => ({
-  products: state.products,
+  ...state,
   restaurants: state.restaurants
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoad(restaurants){
-    dispatch(restaurantLoad(restaurants))
-  }
+  onLoad: restaurants => dispatch({
+    type: RESTAURANT_LOAD,
+    payload: restaurants
+  }),
+  onUnload: () => dispatch({ 
+    type: RESTAURANT_UNLOAD 
+  })
 })
 
 class ProductList extends Component {
@@ -24,9 +28,7 @@ class ProductList extends Component {
 
   render() {
     return (
-      <ul className="list-group col-sm-4 book-list">
-        <Restaurants props={this.props} />
-      </ul>
+        <Restaurants restaurants={this.props.restaurants} />
     );
   }
 }
