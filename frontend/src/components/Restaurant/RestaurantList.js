@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RESTAURANT_LOAD, RESTAURANT_UNLOAD, RESTAURANT_SELECTED } from '../../constants/actionTypes';
+import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED } from '../../constants/actionTypes';
 import agent from '../../agent';
 import Restaurants from './Restaurants';
 
@@ -11,11 +11,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: restaurants => dispatch({
-    type: RESTAURANT_LOAD,
+    type: RESTAURANTS_LOAD,
     payload: restaurants
   }),
   onUnload: () => dispatch({ 
-    type: RESTAURANT_UNLOAD 
+    type: RESTAURANTS_UNLOAD 
   }),
   selectRestaurant: (restaurant) => dispatch({
     type: RESTAURANT_SELECTED,

@@ -30,8 +30,8 @@ const Restaurants = {
         requests.get(`/restaurant/${restaurant}`),
     create: (name, description) => 
         requests.post('/restaurant',{name,description}),
-    update: (restaurant, newName, newDescription) =>
-        requests.put(`/restaurant/${restaurant}`,{newName,newDescription}),
+    update: (restaurant, params) =>
+        requests.put(`/restaurant/${restaurant}`, params),
     delete: (restaurant) => 
         requests.delete(`/restaurant/${restaurant}`)
 };
