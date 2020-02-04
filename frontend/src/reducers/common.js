@@ -1,5 +1,6 @@
 import {
-    ASYNC_START
+    ASYNC_START,
+    ASYNC_END
 } from '../constants/actionTypes';
 
 const defaultState = {
@@ -14,6 +15,11 @@ export default (state = defaultState, action) => {
         return {
           ...state,
           inProgress: true
+        };
+      case ASYNC_END:
+        return {
+          ...state,
+          inProgress: false
         };
       default:
         return state;

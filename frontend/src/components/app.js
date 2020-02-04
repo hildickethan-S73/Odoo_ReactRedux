@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import ProductList from '../containers/product-list';
-import ProductDetail from '../containers/product-detail';
+import RestaurantList from './Restaurant/RestaurantList';
+import RestaurantDetail from './Restaurant/RestaurantDetail';
 
 class App extends Component {
   render() {
     return (
       <div>
         <div>
-          <ProductList />
-          <ProductDetail />
+          <RestaurantList />
+          <RestaurantDetail />
         </div>
       </div>
     );
