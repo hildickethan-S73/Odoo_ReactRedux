@@ -4,20 +4,16 @@ import _superagent from 'superagent';
 const superagent = superagentPromise(_superagent, global.Promise);
 const API_ROOT = 'http://localhost:8069/api';
 const responseBody = res => res.body.result
-const httpResponseBody = res => {
-    // console.log(JSON.parse(res.text));
-    return JSON.parse(res.text)
-    
-}
+const httpResponseBody = res => JSON.parse(res.text)
 
 const jsonHeader = (req) => req.set('Content-Type', 'application/json');
 
 const requests = {
     get: (url) =>
         superagent.get(`${API_ROOT}${url}`).then(httpResponseBody),
-    post: (url, params) =>
+    post: (url, params) => 
         superagent.post(`${API_ROOT}${url}`, {params}).use(jsonHeader).then(responseBody),
-    put: (url, params) =>
+    put: (url, params) => 
         superagent.put(`${API_ROOT}${url}`, {params}).use(jsonHeader).then(responseBody),
     delete: (url) =>
         superagent.del(`${API_ROOT}${url}`).use(jsonHeader).then(responseBody)
@@ -30,7 +26,7 @@ const Restaurants = {
         requests.get(`/restaurant/${restaurant}`),
     create: (name, description) => 
         requests.post('/restaurant',{name,description}),
-    update: (restaurant, params) =>
+    update: (restaurant, params) => 
         requests.put(`/restaurant/${restaurant}`, params),
     delete: (restaurant) => 
         requests.delete(`/restaurant/${restaurant}`)

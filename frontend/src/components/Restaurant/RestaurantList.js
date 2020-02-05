@@ -32,6 +32,8 @@ class RestaurantList extends Component {
   } 
 
   render() {
+    // console.log(agent.Restaurants.update('agentman',{'name':'agentman','description':'agentdesc'}));
+
     return (
         <Restaurants restaurants={this.props.restaurants} selectRestaurant={this.props.selectRestaurant} />
     );

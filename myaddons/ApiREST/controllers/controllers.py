@@ -10,8 +10,11 @@ allowedModels = [
 class Apirest(http.Controller):
     ### OPTIONS
     @http.route('/api/<string:modelToAccess>/', auth='public', type='json', methods=['OPTIONS'], cors="*")
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='json', methods=['OPTIONS'], cors="*")
     def optionResponse(self, **kw):
+        return 'hello'
+
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='json', methods=['OPTIONS'], cors="*")
+    def optionResponse2(self, **kw):
         return 'hello'
 
     ### GET ALL
@@ -64,6 +67,7 @@ class Apirest(http.Controller):
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['PUT'], cors="*")
     def putResponse(self, **kw):
         params = http.request.params
+        print(params)
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']
 
