@@ -31,6 +31,7 @@ class RestaurantDetail extends Component {
   update = () => {
     let newrestaurant = this.props.activeRestaurant;
     console.log(newrestaurant);
+    // agent.Restaurants.create({})
     this.props.updateRestaurant(Promise.resolve(
       agent.Restaurants.update(newrestaurant.name, newrestaurant)
     ))

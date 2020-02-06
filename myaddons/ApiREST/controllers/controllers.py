@@ -11,10 +11,12 @@ class Apirest(http.Controller):
     ### OPTIONS
     @http.route('/api/<string:modelToAccess>/', auth='public', type='json', methods=['OPTIONS'], cors="*")
     def optionResponse(self, **kw):
+        print('sssssssssssssssssssssssssssssssssssssssssss')
         return 'hello'
 
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='json', methods=['OPTIONS'], cors="*")
     def optionResponse2(self, **kw):
+        print('asdjandjanhdjassndajdbahsbhdabhsbdhabhdbahd')
         return 'hello'
 
     ### GET ALL
@@ -64,7 +66,7 @@ class Apirest(http.Controller):
             return {'Error':"Model doesn't exist"}
 
     ### UPDATE
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['PUT'], cors="*")
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['PUT',], cors="*")
     def putResponse(self, **kw):
         params = http.request.params
         print(params)

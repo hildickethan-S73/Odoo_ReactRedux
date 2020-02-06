@@ -24,8 +24,8 @@ const Restaurants = {
         requests.get('/restaurant'),
     getOne: (restaurant) =>
         requests.get(`/restaurant/${restaurant}`),
-    create: (name, description) => 
-        requests.post('/restaurant',{name,description}),
+    create: (params) => 
+        requests.post('/restaurant',params),
     update: (restaurant, params) => 
         requests.put(`/restaurant/${restaurant}`, params),
     delete: (restaurant) => 

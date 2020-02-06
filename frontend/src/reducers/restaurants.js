@@ -3,7 +3,8 @@ import {
   RESTAURANTS_UNLOAD,
   RESTAURANT_SELECTED,
   RESTAURANT_CHANGED,
-  RESTAURANT_UPDATE
+  RESTAURANT_UPDATE,
+  RESTAURANT_CREATE
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -35,6 +36,13 @@ export default (state = {}, action) => {
           ...state,
           activeRestaurant: action.payload
         };
+      
+      case RESTAURANT_CREATE:
+        return {
+          ...state,
+          list: action.payload
+          
+        }
         
       default:
         return state;

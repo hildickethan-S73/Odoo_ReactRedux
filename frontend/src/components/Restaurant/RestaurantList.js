@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED } from '../../constants/actionTypes';
+import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED, RESTAURANT_CREATE } from '../../constants/actionTypes';
 import agent from '../../agent';
 import Restaurants from './Restaurants';
 
@@ -20,7 +20,13 @@ const mapDispatchToProps = (dispatch) => ({
   selectRestaurant: (restaurant) => dispatch({
     type: RESTAURANT_SELECTED,
     payload: restaurant
-  })
+  }),
+  createRestaurant: newlist => {
+    dispatch({
+      type: RESTAURANT_CREATE,
+      payload: newlist
+    })
+  }
 })
 
 class RestaurantList extends Component {
@@ -31,11 +37,30 @@ class RestaurantList extends Component {
     ))
   } 
 
+  create = () => {
+    let newrestaurant = {
+      "name": "create3",
+      "description": "asdjnasjdbahbdhabj"
+    };
+
+    let list = this.props.restaurants.list;
+
+    Promise.resolve(agent.Restaurants.create(newrestaurant))
+      .then( res => {
+        list.push(res)
+        this.props.createRestaurant(list);
+      }
+    )
+  }
+
   render() {
     // console.log(agent.Restaurants.update('agentman',{'name':'agentman','description':'agentdesc'}));
 
     return (
+      <div>
+        <div><input type="button" value="Create" onClick={this.create} /></div>
         <Restaurants restaurants={this.props.restaurants} selectRestaurant={this.props.selectRestaurant} />
+      </div>
     );
   }
 }
