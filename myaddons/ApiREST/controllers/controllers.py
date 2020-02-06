@@ -9,18 +9,21 @@ allowedModels = [
 
 class Apirest(http.Controller):
     ### OPTIONS
-    @http.route('/api/<string:modelToAccess>/', auth='public', type='json', methods=['OPTIONS'], cors="*")
-    def optionResponse(self, **kw):
-        print('sssssssssssssssssssssssssssssssssssssssssss')
-        return 'hello'
+    # @http.route('/api/<string:modelToAccess>/', 
+    #   auth='public', type='json', methods=['OPTIONS'], cors="*")
+    # def optionResponse(self, **kw):
+    #     print('sssssssssssssssssssssssssssssssssssssssssss')
+    #     return 'hello'
 
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='json', methods=['OPTIONS'], cors="*")
-    def optionResponse2(self, **kw):
-        print('asdjandjanhdjassndajdbahsbhdabhsbdhabhdbahd')
-        return 'hello'
+    # @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
+    #   auth='public', type='json', methods=['OPTIONS'], cors="*")
+    # def optionResponse2(self, **kw):
+    #     print('asdjandjanhdjassndajdbahsbhdabhsbdhabhdbahd')
+    #     return 'hello'
 
     ### GET ALL
-    @http.route('/api/<string:modelToAccess>/', auth='public', type='http', methods=['GET'], cors="*")
+    @http.route('/api/<string:modelToAccess>/', 
+        auth='public', type='http', methods=['GET'], cors="*")
     def getResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         if modelToAccess in allowedModels:
@@ -33,7 +36,8 @@ class Apirest(http.Controller):
             return {'Error':"Model doesn't exist"}
     
     ### GET ONE BY NAME FIELD (should be slug)
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type='http', methods=['GET'], cors="*")
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
+        auth='public', type='http', methods=['GET'], cors="*")
     def getOneResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']
@@ -49,7 +53,8 @@ class Apirest(http.Controller):
             return {'Error':"Model doesn't exist"}
 
     ### CREATE 
-    @http.route('/api/<string:modelToAccess>/', auth='public', type="json", methods=['POST'], cors="*")
+    @http.route('/api/<string:modelToAccess>/', 
+        auth='public', type="json", methods=['POST'], cors="*")
     def postResponse(self, **kw):
         params = http.request.params
         modelToAccess = kw['modelToAccess']
@@ -66,7 +71,8 @@ class Apirest(http.Controller):
             return {'Error':"Model doesn't exist"}
 
     ### UPDATE
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['PUT',], cors="*")
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>/', 
+        auth='public', type="json", methods=['PUT','OPTIONS'], cors="*")
     def putResponse(self, **kw):
         params = http.request.params
         print(params)
@@ -77,13 +83,13 @@ class Apirest(http.Controller):
             model = 'apirest.{}'.format(kw['modelToAccess'])
             modelObj = http.request.env[model]
             
-            # searches and update
-            modelObj.search([("name","=",nameToGet)], limit=1).write(params)
-
             # deletes id from params, disabling an id change
             if 'id' in params:
                 del params['id']
                 
+            # searches and update
+            modelObj.search([("name","=",nameToGet)], limit=1).write(params)
+
             # creates query from params to search for the newly modified record
             query = []
             for key in params.keys():
@@ -97,7 +103,8 @@ class Apirest(http.Controller):
             return {'Error':"Model doesn't exist"}
 
     ### DELETE
-    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', auth='public', type="json", methods=['DELETE'], cors="*")
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
+        auth='public', type="json", methods=['DELETE'], cors="*")
     def deleteResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']

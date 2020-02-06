@@ -39,18 +39,13 @@ class RestaurantList extends Component {
 
   create = () => {
     let newrestaurant = {
-      "name": "create3",
+      "name": "create7",
       "description": "asdjnasjdbahbdhabj"
     };
-
-    let list = this.props.restaurants.list;
-
-    Promise.resolve(agent.Restaurants.create(newrestaurant))
-      .then( res => {
-        list.push(res)
-        this.props.createRestaurant(list);
-      }
-    )
+    
+    this.props.createRestaurant(Promise.resolve(
+      agent.Restaurants.create(newrestaurant)
+    ))
   }
 
   render() {

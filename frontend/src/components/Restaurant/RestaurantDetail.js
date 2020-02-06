@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RESTAURANT_CHANGED, RESTAURANT_UPDATE } from "../../constants/actionTypes";
+import { RESTAURANT_CHANGED, RESTAURANT_UPDATE, RESTAURANT_DELETE } from "../../constants/actionTypes";
 import agent from '../../agent';
 
 const mapStateToProps = (state) => ({
@@ -16,6 +16,10 @@ const mapDispatchToProps = (dispatch) => ({
   updateRestaurant: newrestaurant => dispatch({
     type: RESTAURANT_UPDATE,
     payload: newrestaurant
+  }),
+  deleteRestaurant: (name) => dispatch({
+    type: RESTAURANT_DELETE,
+    payload: name
   })
 })
 
@@ -37,6 +41,23 @@ class RestaurantDetail extends Component {
     ))
   }
 
+  delete = () => {
+    let restaurant = this.props.activeRestaurant.name;
+    let list = this.props.restaurants.list;
+    console.log(restaurant);
+
+    Promise.resolve(agent.Restaurants.delete(restaurant))
+      .then( res => {
+        if (res) {
+          console.log(res);
+          
+          list.splice(list.indexOf(restaurant),1)
+          this.props.deleteRestaurant(restaurant)
+        }
+      }
+    )
+  }
+
   render() {
     if (!this.props.activeRestaurant) {
       return (
@@ -52,6 +73,7 @@ class RestaurantDetail extends Component {
         <div>Name: <input type="text" name="name" value={this.props.activeRestaurant.name} onChange={this.change}></input></div>
         <div>Description: <input type="text" name="description" value={this.props.activeRestaurant.description} onChange={this.change}></input></div>
         <div><input type="button" value="Update" onClick={this.update} /> </div>
+        <div><input type="button" value="Delete" onClick={this.delete} /> </div>
       </div>
     );
   }
