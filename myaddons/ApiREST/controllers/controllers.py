@@ -9,22 +9,26 @@ allowedModels = [
 
 class Apirest(http.Controller):
     ### OPTIONS
-    # @http.route('/api/<string:modelToAccess>/', 
-    #   auth='public', type='json', methods=['OPTIONS'], cors="*")
-    # def optionResponse(self, **kw):
-    #     print('sssssssssssssssssssssssssssssssssssssssssss')
-    #     return 'hello'
+    @http.route('/api/<string:modelToAccess>/', 
+      auth='public', methods=['OPTIONS'], cors="*")
+    def optionResponse(self, **kw):
+        return '???'
 
-    # @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
-    #   auth='public', type='json', methods=['OPTIONS'], cors="*")
-    # def optionResponse2(self, **kw):
-    #     print('asdjandjanhdjassndajdbahsbhdabhsbdhabhdbahd')
-    #     return 'hello'
+    @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
+      auth='public', methods=['OPTIONS'], cors="*")
+    def optionResponse2(self, **kw):
+        return '???'
 
     ### GET ALL
     @http.route('/api/<string:modelToAccess>/', 
         auth='public', type='http', methods=['GET'], cors="*")
     def getResponse(self, **kw):
+        ##### attempt to modify headers and resend a request for OPTIONS middleware, wip
+        # if http.request.httprequest.method == 'GET':
+        #     print(http.request.httprequest.method)
+        #     print(http.request.httprequest.headers)
+        #     return http.HttpRequest()
+
         modelToAccess = kw['modelToAccess']
         if modelToAccess in allowedModels:
             model = 'apirest.{}'.format(kw['modelToAccess'])
@@ -72,7 +76,7 @@ class Apirest(http.Controller):
 
     ### UPDATE
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>/', 
-        auth='public', type="json", methods=['PUT','OPTIONS'], cors="*")
+        auth='public', type="json", methods=['PUT'], cors="*")
     def putResponse(self, **kw):
         params = http.request.params
         print(params)
