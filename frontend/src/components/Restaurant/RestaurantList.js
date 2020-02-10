@@ -48,12 +48,26 @@ class RestaurantList extends Component {
     ))
   }
 
+  login = () => {
+    console.log('hi');
+    
+  }
+
+  register = () => {
+    console.log('hi');
+    
+  }
+
   render() {
     // console.log(agent.Restaurants.update('agentman',{'name':'agentman','description':'agentdesc'}));
 
     return (
       <div>
-        <div><input type="button" value="Create" onClick={this.create} /></div>
+        <div>
+          <input type="button" value="Create" onClick={this.create} />
+          <input type="button" value="Login" onClick={this.login} />
+          <input type="button" value="Register" onClick={this.register} />
+        </div>
         <Restaurants restaurants={this.props.restaurants} selectRestaurant={this.props.selectRestaurant} />
       </div>
     );

@@ -1,30 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import models, fields, api
 
-class Restaurant(models.Model):
-    _name = 'apirest.restaurant'
-    _description = '??????????'
+class User(models.Model):
+    _name = 'auth.user'
+    _description = 'User model'
 
-    name = fields.Char(string="Title?", required=True)
-    description = fields.Text()
+    name = fields.Char()
+    password = fields.Char()
     def parseAll(self):
         return parseAll(self)
     def parseOne(self):
         return parseOne(self)
 
-class Session(models.Model):
-    _name = 'apirest.session'
-    _description = 'Session'
-
-    name = fields.Char(required=True)
-    start_date = fields.Date()
-    duration = fields.Float(digits=(0,2), help="Duration in days")
-    seats = fields.Integer(string='Number of seats')
-    def parseAll(self):
-        return parseAll(self)
-    def parseOne(self):
-        return parseOne(self)
 
 def parseAll(model):
     results = []
@@ -54,5 +42,3 @@ def parseOne(model):
         recordObj[key] = str(model[key])
 
     return recordObj
-
-#https://www.odoo.com/documentation/12.0/reference/orm.html#model-reference

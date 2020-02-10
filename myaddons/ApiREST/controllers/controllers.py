@@ -2,20 +2,22 @@
 from odoo import http
 import json
 
-allowedModels = [
-    'restaurant',
-    'session'
-]
+# backwards dict to not have to look for nested data
+allowedModels = {
+    'restaurant':'apirest',
+    'session':'apirest',
+    'user':'auth'
+}
 
 class Apirest(http.Controller):
     ### OPTIONS
     @http.route('/api/<string:modelToAccess>/', 
-      auth='public', methods=['OPTIONS'], cors="*")
+        auth='public', methods=['OPTIONS'], cors="*")
     def optionResponse(self, **kw):
         return '???'
 
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
-      auth='public', methods=['OPTIONS'], cors="*")
+        auth='public', methods=['OPTIONS'], cors="*")
     def optionResponse2(self, **kw):
         return '???'
 
@@ -23,21 +25,15 @@ class Apirest(http.Controller):
     @http.route('/api/<string:modelToAccess>/', 
         auth='public', type='http', methods=['GET'], cors="*")
     def getResponse(self, **kw):
-        ##### attempt to modify headers and resend a request for OPTIONS middleware, wip
-        # if http.request.httprequest.method == 'GET':
-        #     print(http.request.httprequest.method)
-        #     print(http.request.httprequest.headers)
-        #     return http.HttpRequest()
-
         modelToAccess = kw['modelToAccess']
         if modelToAccess in allowedModels:
-            model = 'apirest.{}'.format(kw['modelToAccess'])
+            model = "{}.{}".format(allowedModels[modelToAccess],modelToAccess)
             modelObj = http.request.env[model]
 
             # parseAll() is a self made function that parses the records as JSON
             return json.dumps(modelObj.search([]).parseAll())
         else:
-            return {'Error':"Model doesn't exist"}
+            return "Model doesn't exist"
     
     ### GET ONE BY NAME FIELD (should be slug)
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
@@ -47,7 +43,7 @@ class Apirest(http.Controller):
         nameToGet = kw['nameToGet']
 
         if modelToAccess in allowedModels:
-            model = 'apirest.{}'.format(kw['modelToAccess'])
+            model = "{}.{}".format(allowedModels[modelToAccess],modelToAccess)
             modelObj = http.request.env[model]
             
             # search with name query
@@ -64,7 +60,7 @@ class Apirest(http.Controller):
         modelToAccess = kw['modelToAccess']
 
         if modelToAccess in allowedModels:
-            model = 'apirest.{}'.format(kw['modelToAccess'])
+            model = 'apirest.{}'.format(modelToAccess)
             modelObj = http.request.env[model]
 
             create = modelObj.create(params)
@@ -114,7 +110,7 @@ class Apirest(http.Controller):
         nameToGet = kw['nameToGet']
 
         if modelToAccess in allowedModels:
-            model = 'apirest.{}'.format(kw['modelToAccess'])
+            model = 'apirest.{}'.format(modelToAccess)
             modelObj = http.request.env[model]
 
             # search with name query
