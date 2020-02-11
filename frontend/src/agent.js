@@ -2,7 +2,7 @@ import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
-const API_ROOT = 'http://localhost:8069/api';
+const ODOO_ROOT_URL = 'http://localhost:8069';
 const responseBody = res => res.body.result
 const httpResponseBody = res => JSON.parse(res.text)
 
@@ -10,28 +10,38 @@ const jsonHeader = (req) => req.set('Content-Type', 'application/json');
 
 const requests = {
     get: (url) =>
-        superagent.get(`${API_ROOT}${url}`).then(httpResponseBody),
+        superagent.get(`${ODOO_ROOT_URL}${url}`).then(httpResponseBody),
     post: (url, params) => 
-        superagent.post(`${API_ROOT}${url}`, {params}).use(jsonHeader).then(responseBody),
+        superagent.post(`${ODOO_ROOT_URL}${url}`, {params}).use(jsonHeader).then(responseBody),
     put: (url, params) => 
-        superagent.put(`${API_ROOT}${url}`, {params}).use(jsonHeader).then(responseBody),
+        superagent.put(`${ODOO_ROOT_URL}${url}`, {params}).use(jsonHeader).then(responseBody),
     delete: (url) =>
-        superagent.del(`${API_ROOT}${url}`).use(jsonHeader).then(responseBody)
+        superagent.del(`${ODOO_ROOT_URL}${url}`).use(jsonHeader).then(responseBody)
 };
 
 const Restaurants = {
     getAll: () =>
-        requests.get('/restaurant'),
+        requests.get('/api/restaurant'),
     getOne: (restaurant) =>
-        requests.get(`/restaurant/${restaurant}`),
+        requests.get(`/api/restaurant/${restaurant}`),
     create: (params) => 
-        requests.post('/restaurant',params),
+        requests.post('/api/restaurant',params),
     update: (restaurant, params) => 
-        requests.put(`/restaurant/${restaurant}`, params),
+        requests.put(`/api/restaurant/${restaurant}`, params),
     delete: (restaurant) => 
-        requests.delete(`/restaurant/${restaurant}`)
+        requests.delete(`/api/restaurant/${restaurant}`)
 };
 
+const Auth = {
+    login: (credentials) => 
+        requests.post('/auth/login', credentials),
+    register: (credentials) => 
+        requests.post('/auth/register', credentials),
+    logout: () => 
+        requests.post('/auth/logout')
+}
+
 export default {
-    Restaurants
+    Restaurants,
+    Auth
 }

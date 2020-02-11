@@ -16,6 +16,7 @@ class Auth(http.Controller):
 
         result = modelObj.create(params)
         parsedResult = result.parseOne()
+        del parsedResult['password']
 
         return parsedResult
 
@@ -34,6 +35,17 @@ class Auth(http.Controller):
             return parsedResult
         else:
             return {"error":"Wrong password"}
+
+    @http.route('/auth/logout',
+        type='json', auth='public', methods=['POST','OPTIONS'], cors='*')
+    def logoutResponse(self, **kw):
+        # params = http.request.params
+        # modelObj = http.request.env['auth.user']
+
+        # delete token here
+        # anything else ?? no sessions
+
+        return {"logout":"yes"}
 
 def hashPassword(password,salt):
     '''

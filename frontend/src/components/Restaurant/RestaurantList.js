@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED, RESTAURANT_CREATE } from '../../constants/actionTypes';
+import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED, RESTAURANT_CREATE, AUTH_REGISTER, AUTH_LOGIN, AUTH_LOGOUT } from '../../constants/actionTypes';
 import agent from '../../agent';
 import Restaurants from './Restaurants';
 
@@ -26,6 +26,23 @@ const mapDispatchToProps = (dispatch) => ({
       type: RESTAURANT_CREATE,
       payload: newlist
     })
+  },
+  register: returnedUser => {
+    dispatch({
+      type: AUTH_REGISTER,
+      payload: returnedUser
+    })
+  },
+  login: returnedUser => {
+    dispatch({
+      type: AUTH_LOGIN,
+      payload: returnedUser
+    })
+  },
+  logout: () => {
+    dispatch({
+      type: AUTH_LOGOUT
+    })
   }
 })
 
@@ -49,24 +66,41 @@ class RestaurantList extends Component {
   }
 
   login = () => {
-    console.log('hi');
-    
+    let credentials = {
+      "name": "registe3",
+      "password": "plaintext"
+    };
+
+    this.props.login(Promise.resolve(
+      agent.Auth.login(credentials)
+    ))
   }
 
   register = () => {
-    console.log('hi');
-    
+    let credentials = {
+      "name": "registe3",
+      "password": "plaintext"
+    };
+
+    this.props.register(Promise.resolve(
+      agent.Auth.register(credentials)
+    ))
+  }
+
+  logout = () => {
+    this.props.logout(Promise.resolve(
+      agent.Auth.logout()
+    ))
   }
 
   render() {
-    // console.log(agent.Restaurants.update('agentman',{'name':'agentman','description':'agentdesc'}));
-
     return (
       <div>
         <div>
           <input type="button" value="Create" onClick={this.create} />
           <input type="button" value="Login" onClick={this.login} />
           <input type="button" value="Register" onClick={this.register} />
+          <input type="button" value="Logout" onClick={this.logout} />
         </div>
         <Restaurants restaurants={this.props.restaurants} selectRestaurant={this.props.selectRestaurant} />
       </div>
