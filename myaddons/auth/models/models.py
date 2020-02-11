@@ -12,6 +12,10 @@ class User(models.Model):
         return parseAll(self)
     def parseOne(self):
         return parseOne(self)
+    # def hashPassword(self,salt):
+    #     return hashPassword(self,salt)
+    # def generateSalt(self):
+    #     return generateSalt()
 
 
 def parseAll(model):
