@@ -21,29 +21,22 @@ const mapDispatchToProps = (dispatch) => ({
     type: RESTAURANT_SELECTED,
     payload: restaurant
   }),
-  createRestaurant: newlist => {
-    dispatch({
-      type: RESTAURANT_CREATE,
-      payload: newlist
-    })
-  },
-  register: returnedUser => {
-    dispatch({
-      type: AUTH_REGISTER,
-      payload: returnedUser
-    })
-  },
-  login: returnedUser => {
-    dispatch({
-      type: AUTH_LOGIN,
-      payload: returnedUser
-    })
-  },
-  logout: () => {
-    dispatch({
-      type: AUTH_LOGOUT
-    })
-  }
+  createRestaurant: newlist => dispatch({
+    type: RESTAURANT_CREATE,
+    payload: newlist
+  }),
+  register: returnedUser => dispatch({
+    type: AUTH_REGISTER,
+    payload: returnedUser
+  }),
+  login: returnedUser => dispatch({
+    type: AUTH_LOGIN,
+    payload: returnedUser
+  }),
+  logout: loggedoutUser => dispatch({
+    type: AUTH_LOGOUT,
+    payload: loggedoutUser
+  })
 })
 
 class RestaurantList extends Component {

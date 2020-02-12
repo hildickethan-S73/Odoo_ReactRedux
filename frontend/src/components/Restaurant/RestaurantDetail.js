@@ -61,14 +61,14 @@ class RestaurantDetail extends Component {
   render() {
     if (!this.props.activeRestaurant) {
       return (
-        <div className="col-sm-8 book-detail">
+        <div className="col-sm-4 book-detail">
           <h3 className="book-detail__header">Select a restaurant to get started!</h3>
         </div>
       );
     }
 
     return (
-      <div className="col-sm-8 book-detail">
+      <div className="col-sm-4 book-detail">
         <h3 className="book-detail__header">Details for: {this.props.activeRestaurant.name}</h3>
         <div>Name: <input type="text" name="name" value={this.props.activeRestaurant.name} onChange={this.change}></input></div>
         <div>Description: <input type="text" name="description" value={this.props.activeRestaurant.description} onChange={this.change}></input></div>
