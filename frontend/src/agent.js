@@ -2,7 +2,7 @@ import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
-const ODOO_ROOT_URL = 'http://localhost:8069';
+const ODOO_ROOT_URL = 'http://localhost';
 const responseBody = res => res.body.result
 const httpResponseBody = res => JSON.parse(res.text)
 
@@ -16,7 +16,7 @@ const requests = {
     put: (url, params) => 
         superagent.put(`${ODOO_ROOT_URL}${url}`, {params}).use(jsonHeader).then(responseBody),
     delete: (url) =>
-        superagent.del(`${ODOO_ROOT_URL}${url}`).use(jsonHeader).then(responseBody)
+        superagent.del(`${ODOO_ROOT_URL}${url}`).then(httpResponseBody)
 };
 
 const Restaurants = {

@@ -12,18 +12,18 @@ allowedModels = {
 class Apirest(http.Controller):
     ### OPTIONS
     @http.route('/api/<string:modelToAccess>/', 
-        auth='public', methods=['OPTIONS'], cors="*")
+        auth='public', methods=['OPTIONS'])
     def optionResponse(self, **kw):
         return '???'
 
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
-        auth='public', methods=['OPTIONS'], cors="*")
+        auth='public', methods=['OPTIONS'])
     def optionResponse2(self, **kw):
         return '???'
 
     ### GET ALL
     @http.route('/api/<string:modelToAccess>/', 
-        auth='public', type='http', methods=['GET'], cors="*")
+        auth='public', type='http', methods=['GET'])
     def getResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         if modelToAccess in allowedModels:
@@ -37,7 +37,7 @@ class Apirest(http.Controller):
     
     ### GET ONE BY NAME FIELD (should be slug)
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
-        auth='public', type='http', methods=['GET'], cors="*")
+        auth='public', type='http', methods=['GET'])
     def getOneResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']
@@ -54,7 +54,7 @@ class Apirest(http.Controller):
 
     ### CREATE 
     @http.route('/api/<string:modelToAccess>/', 
-        auth='public', type="json", methods=['POST'], cors="*")
+        auth='public', type="json", methods=['POST'])
     def postResponse(self, **kw):
         params = http.request.params
         modelToAccess = kw['modelToAccess']
@@ -72,7 +72,7 @@ class Apirest(http.Controller):
 
     ### UPDATE
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>/', 
-        auth='public', type="json", methods=['PUT'], cors="*")
+        auth='public', type="json", methods=['PUT'])
     def putResponse(self, **kw):
         params = http.request.params
         print(params)
@@ -104,7 +104,7 @@ class Apirest(http.Controller):
 
     ### DELETE
     @http.route('/api/<string:modelToAccess>/<string:nameToGet>', 
-        auth='public', type="json", methods=['DELETE'], cors="*")
+        auth='public', type="http", methods=['DELETE'], csrf=False)
     def deleteResponse(self, **kw):
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']
@@ -121,9 +121,9 @@ class Apirest(http.Controller):
             if record.exists():
                 # delete record
                 record.unlink()
-                return {'deleted':True}
+                return 'deleted'
             else:
-                return {'deleted':False}
+                return 'not deleted'
 
         else:
-            return {'Error':"Model doesn't exist"}
+            return "Model doesn't exist"

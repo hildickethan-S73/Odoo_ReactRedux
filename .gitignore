@@ -14,3 +14,6 @@ yarn-error.log*
 
 # general
 .vscode
+
+caddy/logs
+caddy/certificates
