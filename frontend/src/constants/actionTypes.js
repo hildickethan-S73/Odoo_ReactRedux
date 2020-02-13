@@ -11,3 +11,4 @@ export const AUTH_REGISTER = 'AUTH_REGISTER';
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_CHANGE = 'AUTH_CHANGE';
+export const AUTH_LOAD_NEWUSER = 'AUTH_LOAD_NEWUSER';

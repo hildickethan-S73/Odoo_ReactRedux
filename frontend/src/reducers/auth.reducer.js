@@ -1,5 +1,5 @@
 import {
-    AUTH_REGISTER, AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHANGE
+    AUTH_REGISTER, AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHANGE, AUTH_LOAD_NEWUSER
 } from '../constants/actionTypes';
   
 export default (state = {}, action) => {
@@ -40,6 +40,11 @@ switch(action.type) {
             }
         }
         
+    case AUTH_LOAD_NEWUSER:
+        return {
+            newuser: {}
+        }
+
     default:
         return state;
     }
