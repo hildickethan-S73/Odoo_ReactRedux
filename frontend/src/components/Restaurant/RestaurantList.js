@@ -49,8 +49,8 @@ class RestaurantList extends Component {
 
   create = () => {
     let newrestaurant = {
-      "name": "create7",
-      "description": "asdjnasjdbahbdhabj"
+      "name": "create"+Math.floor(Math.random()*1000),
+      "description": "1111"
     };
     
     this.props.createRestaurant(Promise.resolve(

@@ -36,8 +36,14 @@ export default (state = {}, action) => {
       };
     
     case RESTAURANT_UPDATE:
+      list = state.list;
+      let filtered = list.filter((element) => element.id === action.payload.id);
+      let index = list.indexOf(filtered[0]);
+      list[index] = action.payload;
+      
       return {
         ...state,
+        list: list,
         activeRestaurant: action.payload
       };
       
@@ -54,7 +60,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         list: list,
-        activeRestaurant: {}
+        activeRestaurant: null
       }
         
         
