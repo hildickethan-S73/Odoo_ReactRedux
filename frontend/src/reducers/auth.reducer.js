@@ -6,6 +6,7 @@ export default (state = {}, action) => {
 switch(action.type) {
     case AUTH_REGISTER:
         return {
+            ...state,
             user: action.payload
         }
     case AUTH_LOGIN:
@@ -34,6 +35,7 @@ switch(action.type) {
         }
     case AUTH_CHANGE:
         return {
+            ...state,
             newuser: {
                 ...action.payload.newuser,
                 [action.payload.target.name]: action.payload.target.value
@@ -42,6 +44,7 @@ switch(action.type) {
         
     case AUTH_LOAD_NEWUSER:
         return {
+            ...state,
             newuser: {}
         }
 

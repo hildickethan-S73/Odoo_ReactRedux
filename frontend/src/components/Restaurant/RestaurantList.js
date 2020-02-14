@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED, RESTAURANT_CREATE, AUTH_REGISTER, AUTH_LOGIN, AUTH_LOGOUT } from '../../constants/actionTypes';
+import { Link } from 'react-router-dom';
 import agent from '../../agent';
+import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED, RESTAURANT_CREATE } from '../../constants/actionTypes';
 import Restaurants from './Restaurants';
 
 const mapStateToProps = (state) => ({
   ...state,
-  restaurants: state.restaurants
+  restaurants: state.restaurants,
+  user: state.auth.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,18 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
   createRestaurant: newlist => dispatch({
     type: RESTAURANT_CREATE,
     payload: newlist
-  }),
-  register: returnedUser => dispatch({
-    type: AUTH_REGISTER,
-    payload: returnedUser
-  }),
-  login: returnedUser => dispatch({
-    type: AUTH_LOGIN,
-    payload: returnedUser
-  }),
-  logout: loggedoutUser => dispatch({
-    type: AUTH_LOGOUT,
-    payload: loggedoutUser
   })
 })
 
@@ -58,42 +48,13 @@ class RestaurantList extends Component {
     ))
   }
 
-  login = () => {
-    let credentials = {
-      "name": "registe3",
-      "password": "plaintext"
-    };
-
-    this.props.login(Promise.resolve(
-      agent.Auth.login(credentials)
-    ))
-  }
-
-  register = () => {
-    let credentials = {
-      "name": "registe3",
-      "password": "plaintext"
-    };
-
-    this.props.register(Promise.resolve(
-      agent.Auth.register(credentials)
-    ))
-  }
-
-  logout = () => {
-    this.props.logout(Promise.resolve(
-      agent.Auth.logout()
-    ))
-  }
-
   render() {
     return (
       <div>
         <div>
-          <input type="button" value="Create" onClick={this.create} />
-          <input type="button" value="Login" onClick={this.login} />
-          <input type="button" value="Register" onClick={this.register} />
-          <input type="button" value="Logout" onClick={this.logout} />
+          <input type="button" className="btn btn-success"value="Create" onClick={this.create} />
+          {(!this.props.user || !this.props.user.id) && <Link to="/register" className="btn btn-info">Register</Link>}
+          {(!this.props.user || !this.props.user.id) && <Link to="/login" className="btn btn-info">Login</Link>}
         </div>
         <Restaurants restaurants={this.props.restaurants} selectRestaurant={this.props.selectRestaurant} />
       </div>
