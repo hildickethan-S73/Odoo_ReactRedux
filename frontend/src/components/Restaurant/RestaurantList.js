@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import agent from '../../agent';
 import { RESTAURANTS_LOAD, RESTAURANTS_UNLOAD, RESTAURANT_SELECTED, RESTAURANT_CREATE } from '../../constants/actionTypes';
 import Restaurants from './Restaurants';
+import ButtonsUserView from "../Auth/Restaurant/ButtonsUserView";
 
 const mapStateToProps = (state) => ({
   ...state,
@@ -51,11 +51,7 @@ class RestaurantList extends Component {
   render() {
     return (
       <div>
-        <div>
-          <input type="button" className="btn btn-success"value="Create" onClick={this.create} />
-          {(!this.props.user || !this.props.user.id) && <Link to="/register" className="btn btn-info">Register</Link>}
-          {(!this.props.user || !this.props.user.id) && <Link to="/login" className="btn btn-info">Login</Link>}
-        </div>
+        <ButtonsUserView user={this.props.user} create={this.create} />
         <Restaurants restaurants={this.props.restaurants} selectRestaurant={this.props.selectRestaurant} />
       </div>
     );
