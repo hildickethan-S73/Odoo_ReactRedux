@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 import json
+import jwt
 
 # backwards dict to not have to look for nested data
 allowedModels = {
@@ -62,11 +63,23 @@ class Apirest(http.Controller):
         if modelToAccess in allowedModels:
             model = 'apirest.{}'.format(modelToAccess)
             modelObj = http.request.env[model]
+            
+            if 'token' in params.keys():
+                secret = getSecret()
+                token = str(params['token'])
+                try:
+                    decoded = jwt.decode(token, secret, algorithms=['HS256'])
+                    params['author'] = decoded['username']
+                
+                    del params['token']
+                    create = modelObj.create(params)
+                    parsedResult = create.parseOne()
 
-            create = modelObj.create(params)
-            parsedResult = create.parseOne()
-
-            return parsedResult
+                    return parsedResult
+                except:
+                    return {'Error': "Invalid token"}
+            else:
+                return {'Error': 'No token'}
         else:
             return {'Error':"Model doesn't exist"}
 
@@ -75,7 +88,6 @@ class Apirest(http.Controller):
         auth='public', type="json", methods=['PUT'])
     def putResponse(self, **kw):
         params = http.request.params
-        print(params)
         modelToAccess = kw['modelToAccess']
         nameToGet = kw['nameToGet']
 
@@ -127,3 +139,7 @@ class Apirest(http.Controller):
 
         else:
             return "Model doesn't exist"
+
+def getSecret():
+    secret = 'secret'
+    return secret

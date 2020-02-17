@@ -37,10 +37,12 @@ class RestaurantList extends Component {
     ))
   } 
 
+  // only visible if logged in
   create = () => {
     let newrestaurant = {
       "name": "create"+Math.floor(Math.random()*1000),
-      "description": "1111"
+      "description": "1111",
+      "token": this.props.user.token
     };
     
     this.props.createRestaurant(Promise.resolve(

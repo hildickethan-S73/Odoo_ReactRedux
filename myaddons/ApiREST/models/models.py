@@ -8,6 +8,7 @@ class Restaurant(models.Model):
 
     name = fields.Char(string="Title?", required=True)
     description = fields.Text()
+    author = fields.Char()
     def parseAll(self):
         return parseAll(self)
     def parseOne(self):

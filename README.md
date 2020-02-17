@@ -1,8 +1,8 @@
 # Odoo_ReactRedux
 
 ## odoo
-Add myaddons folder to your odoo addons path or copy the modules inside to another addons folder.  
-App is called **ApiREST**
+Run `docker-compose up --build` with ports 8069 and 80 free
+Modules are called **ApiREST** and **auth**
 
 ## react
 `npm install` inside frontend folder, `npm start` to start application
