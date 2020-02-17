@@ -36,3 +36,8 @@ body {
 .list-group-item:hover {
   background-color: #EEE;
 }
+
+li span {
+  font-size: 0.7em;
+  color: grey;
+}

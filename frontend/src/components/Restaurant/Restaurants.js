@@ -18,7 +18,8 @@ const Restaurants = props => {
               className="list-group-item"
               onClick={() => props.selectRestaurant(restaurant)}
               >
-              {restaurant.name}
+              <div>{restaurant.name}</div>
+              <span>{restaurant.author}</span>
             </li>
           )
         })

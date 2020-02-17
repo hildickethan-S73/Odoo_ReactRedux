@@ -52,11 +52,6 @@ class Auth(http.Controller):
     @http.route('/auth/logout',
         type='json', auth='public', methods=['POST','OPTIONS'], cors='*')
     def logoutResponse(self, **kw):
-        # delete token here
-        # get secret from .ini
-
-        # jwt.decode(encoded_jwt, 'secret', algorithms=['HS256'])
-
         return {"logout":"yes"}
 
 def hashPassword(password,salt):

@@ -57,8 +57,9 @@ class RestaurantDetail extends Component {
     return (
       <div className="col-sm-4 book-detail">
         <h3 className="book-detail__header">Details for: {this.props.activeRestaurant.name}</h3>
-        <div>Name: <input type="text" name="name" value={this.props.activeRestaurant.name} onChange={this.change} readOnly></input></div>
+        <div>Name: <b>{this.props.activeRestaurant.name}</b></div>
         <div>Description: <input type="text" name="description" value={this.props.activeRestaurant.description} onChange={this.change}></input></div>
+        <div>Author: <b>{this.props.activeRestaurant.author}</b></div>
         <div><input type="button" value="Update" onClick={this.update} /> </div>
         <div><input type="button" value="Delete" onClick={this.delete} /> </div>
       </div>
