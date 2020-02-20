@@ -101,6 +101,8 @@ class Apirest(http.Controller):
             if 'id' in params:
                 del params['id']
                 
+            del params['author_id']
+                
             # searches and update
             modelObj.search([("name","=",nameToGet)], limit=1).write(params)
 
