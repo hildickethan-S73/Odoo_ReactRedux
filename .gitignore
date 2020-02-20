@@ -1,5 +1,6 @@
 # odoo
 __pycache__
+config/config.ini
 
 # react
 package-lock.json

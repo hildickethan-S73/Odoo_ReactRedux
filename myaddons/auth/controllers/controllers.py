@@ -3,10 +3,11 @@ from odoo import http
 import hashlib
 import os
 import jwt
+import configparser
 
 class Auth(http.Controller):
     @http.route('/auth/register',
-        type='json', auth='public', methods=['POST','OPTIONS'], cors='*')
+        type='json', auth='public', methods=['POST','OPTIONS'])
     def registerResponse(self, **kw):
         params = http.request.params
         modelObj = http.request.env['auth.user']
@@ -20,37 +21,40 @@ class Auth(http.Controller):
 
         del parsedResult['password']
 
-        # get secret from .ini
         secret = getSecret()
-        encoded_jwt = jwt.encode({'username': parsedResult['name']}, secret, algorithm='HS256')
+        encoded_jwt = jwt.encode({'id': parsedResult['id']}, secret, algorithm='HS256')
         parsedResult['token'] = encoded_jwt
 
         return parsedResult
 
     @http.route('/auth/login',
-        type='json', auth='public', methods=['POST','OPTIONS'], cors='*')
+        type='json', auth='public', methods=['POST','OPTIONS'])
     def loginResponse(self, **kw):
         params = http.request.params
         modelObj = http.request.env['auth.user']
 
         query = [("name","=",params['name'])]
         result = modelObj.search(args=query, limit=1)
-        parsedResult = result.parseOne()
 
-        if verifyPassword(parsedResult['password'],params['password']):
-            del parsedResult['password']
+        if result.exists():
+            parsedResult = result.parseOne()
+            # check for default odoo user in demo.xml, check if password is correct
+            if parsedResult['password'] != 'False' and verifyPassword(parsedResult['password'],params['password']):
+                del parsedResult['password']
 
-            # get secret from .ini
-            secret = getSecret()
-            encoded_jwt = jwt.encode({'username': parsedResult['name']}, secret, algorithm='HS256')
-            parsedResult['token'] = encoded_jwt
+    
+                secret = getSecret()
+                encoded_jwt = jwt.encode({'id': parsedResult['id']}, secret, algorithm='HS256')
+                parsedResult['token'] = encoded_jwt
 
-            return parsedResult
+                return parsedResult
+            else:
+                return {"error":"Wrong password"}
         else:
-            return {"error":"Wrong password"}
+                return {"error":"User doesn't exist"}
 
     @http.route('/auth/logout',
-        type='json', auth='public', methods=['POST','OPTIONS'], cors='*')
+        type='json', auth='public', methods=['POST','OPTIONS'])
     def logoutResponse(self, **kw):
         return {"logout":"yes"}
 
@@ -94,5 +98,8 @@ def verifyPassword(password,loginpassword):
     return False
 
 def getSecret():
-    secret = 'secret'
+    config = configparser.ConfigParser()
+    config.read('/etc/odoo/config.ini')
+    secret = config.get('password', 'JWT_PASSWORD')
+
     return secret

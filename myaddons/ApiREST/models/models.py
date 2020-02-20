@@ -4,11 +4,12 @@ from odoo import api, fields, models
 
 class Restaurant(models.Model):
     _name = 'apirest.restaurant'
-    _description = '??????????'
+    _description = 'restaurant model'
 
-    name = fields.Char(string="Title?", required=True)
+    name = fields.Char(string="Name", required=True)
     description = fields.Text()
-    author = fields.Char()
+    author_id = fields.Many2one('auth.user', 'Author ID')
+    author = fields.Char(string="Author Name",related='author_id.name')
     def parseAll(self):
         return parseAll(self)
     def parseOne(self):

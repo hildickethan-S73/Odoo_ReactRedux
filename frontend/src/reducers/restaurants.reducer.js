@@ -48,6 +48,13 @@ export default (state = {}, action) => {
       };
       
     case RESTAURANT_CREATE:
+      if (action.payload.error !== undefined) {
+        console.error(action.payload.error)
+        return {
+          ...state,
+          error: action.payload.error
+        }
+      }
       list = state.list;
       list.push(action.payload);
       return {

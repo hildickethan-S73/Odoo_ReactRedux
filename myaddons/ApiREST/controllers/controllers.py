@@ -2,6 +2,7 @@
 from odoo import http
 import json
 import jwt
+import configparser
 
 # backwards dict to not have to look for nested data
 allowedModels = {
@@ -69,12 +70,13 @@ class Apirest(http.Controller):
                 token = str(params['token'])
                 try:
                     decoded = jwt.decode(token, secret, algorithms=['HS256'])
-                    params['author'] = decoded['username']
+                    params['author_id'] = decoded['id']
                 
                     del params['token']
                     create = modelObj.create(params)
                     parsedResult = create.parseOne()
-
+                    del params['author_id']
+                    
                     return parsedResult
                 except:
                     return {'Error': "Invalid token"}
@@ -141,5 +143,8 @@ class Apirest(http.Controller):
             return "Model doesn't exist"
 
 def getSecret():
-    secret = 'secret'
+    config = configparser.ConfigParser()
+    config.read('/etc/odoo/config.ini')
+    secret = config.get('password', 'JWT_PASSWORD')
+
     return secret
